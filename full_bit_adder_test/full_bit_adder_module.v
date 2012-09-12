@@ -1,29 +1,22 @@
 
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    20:44:33 09/10/2012 
-// Design Name: 
-// Module Name:    full_bit_adder_module 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
-//////////////////////////////////////////////////////////////////////////////////
-module full_bit_adder_module(Cout, sum, lna, lnb);
-input lna, lnb;
+////////////////////////////
+module full_bit_adder_module(Cout, sum, lna, lnb, Cin);
+input lna, lnb, Cin;
 output Cout, sum;
 
-xor (sum, lna, lnb);
-and (Cout, lna, lnb);
+//xor (sum, lna, lnb);
+//and (Cout, lna, lnb);
 
+wire ab, andand, w1, w2;
+/*
+assign ab = lna^lnb;
+assign sum = ab^Cin;
+assign w1= ab&Cin;
+assign w2 = lna&lnb;
+assign Cout = w1|w2;
+*/
+
+assign sum = lna^lnb^Cin;
+assign Cout = (lna&lnb)|(Cin&(lna^lnb));
 
 endmodule
