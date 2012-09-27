@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
-
-module one(
+//gate level implementation
+module g1_gates(
     input x3,
     input x2,
     input x1,
