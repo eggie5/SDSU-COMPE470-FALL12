@@ -38,10 +38,9 @@ module g3_test;
 		f = 0;
 
 		// Wait 100 ns for global reset to finish
-		#1; abcdef = 000000;
-		#1; abcdef = 111111;
-		#1; abcdef = 010101;
-		#1; abcdef = 101010;
+		#1; {a,b,c,d,e,f}=6'b011100;
+		#1; {a,b,c,d,e,f}=6'b010101;
+		#1; {a,b,c,d,e,f}=6'b101010;
         
 		// Add stimulus here
 
