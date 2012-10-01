@@ -38,7 +38,8 @@ module g3_test;
 		f = 0;
 
 		// Wait 100 ns for global reset to finish
-		#1; {a,b,c,d,e,f}=6'b011100;
+		#1; {a,b,c,d,e,f}=6'b000000;
+		#1; {a,b,c,d,e,f}=6'b111111;
 		#1; {a,b,c,d,e,f}=6'b010101;
 		#1; {a,b,c,d,e,f}=6'b101010;
         
