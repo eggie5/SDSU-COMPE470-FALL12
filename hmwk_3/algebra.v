@@ -8,14 +8,11 @@ module algebra(
     output signed[8:0] y
     );
 
-	reg signed [7:0] product;
 	reg signed [8:0] sum;
-	reg signed [8:0] temp;
+	
 	always @(posedge CLK) begin
-		product <= a*x;
-		sum <= product + b;
-		temp <= sum;
+		sum <= (a*x) + b;
 	end	
 	
-	assign y = temp;
+	assign y = sum;
 endmodule
