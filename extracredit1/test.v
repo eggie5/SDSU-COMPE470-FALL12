@@ -1,24 +1,23 @@
 `timescale 1ns / 1ps
 
 
-module test;
+module test3;
 
 	// Inputs
 	reg signed [3:0] X;
 	reg CLK;
 
 	// Outputs
-	wire signed [18:0] R;
+	wire signed [17:0] outR;
 
 	// Instantiate the Unit Under Test (UUT)
 	extracredit uut (
 		.X(X), 
 		.CLK(CLK), 
-		.R(R)
+		.outR(outR)
 	);
 
 	initial begin
-		// Initialize Inputs
 		X = 0;
 		CLK = 0;
 
@@ -27,8 +26,6 @@ module test;
 		#10 X=-1;
 		#10 X=-2;
 		#10 X=3;
-        
-		// Add stimulus here
 
 	end
 	
