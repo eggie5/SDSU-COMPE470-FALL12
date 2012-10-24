@@ -1,0 +1,8 @@
+*.cmd_log
+*.lso
+*.ngc
+*.ngr
+*.prj
+*.stx
+*.xst
+
