@@ -6,6 +6,11 @@ module mux2_1_gates(
     input SEL,
     output OUT
     );
+	
+	 not(not_sel, SEL);
+	 and(and1, A, not_sel);
+	 and(and2, B, SEL);
+	 or(OUT, and1, and2);
 
 
 endmodule
