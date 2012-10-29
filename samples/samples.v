@@ -1,17 +1,17 @@
 //==========================================
 // 8-bit Shift-Left Register with Positive-Edge Clock, Synchronous Set, // Serial In, and Serial Out 
 //==========================================
-module 8bit-shift-left-pos-edge-sync-set
+module bit_shift_left_pos_edge_sync_set
 	(input CLK,
 	input set,
 	input sIn,
-	output sOut)
+	output sOut);
 	
 	reg [7:0] register;
 	
 	always @(posedge CLK) begin
 	
-		if(set) register=8''b1
+		if(set) register=8'b1
 		else
 			register <= {register[6:0]},sIn} //shift left pad w/ 0s
 
@@ -25,16 +25,16 @@ endmodule
 // 8-bit Shift-Left Register with Positive-Edge Clock, // Serial In, and Parallel Out
 //==========================================
 //same as above w/ no set bit
-.
-.
-.
-always @(posedge CLK) begin
-
-		register <= {register[6:0]},sIn} //shift left pad w/ 0s
-end
-.
-.
-.
+//.
+//.
+//.
+//always @(posedge CLK) begin
+//
+//		register <= {register[6:0]},sIn} //shift left pad w/ 0s
+//end
+//.
+//.
+//.
 
 
 
@@ -46,7 +46,11 @@ end
 //==========================================
 
 module 8_bit_left_shift_w_asynch_parallel_load_sin_sout
-(input clk, sin, isload, load, output sout)
+(input clk, 
+input sin, 
+input isload, 
+input load, 
+output sout);
 
 reg temp [7:0];
 
@@ -66,26 +70,28 @@ endmodule
 // 8-bit Shift-Left Register with Positive-Edge Clock, // Synchronous Parallel Load, Serial In, and Serial Out 
 //==========================================
 //same as above but not asynch
-.
-.
-.
-
-always @(posedge clk) begin
-	if(isload) temp<=load
-	else temp<={temp[6:0],sin}
-end
-
-.
-.
-.
+//.
+//.
+//.
+//
+//always @(posedge clk) begin
+//	if(isload) temp<=load
+//	else temp<={temp[6:0],sin}
+//end
+//
+//.
+//.
+//.
 
 //==========================================
 // 8-bit Shift-Left/Shift-Right Register with Positive-Edge Clock, // Serial In, and Parallel Out 
 //==========================================
 
-module left-right-shift
-(input clk, isLeft, sin,
-output pout)
+module left_right_shift
+(input clk, 
+input isLeft, 
+input sin,
+output pout);
 
 	reg [7:0] temp;
 	
@@ -106,14 +112,18 @@ endmodule
 //==========================================
 
 module mux41_case
-(input a,b,c,d, [1:0]sel
-output reg o)
+(input a,
+input b,
+input c,
+input d, 
+input [1:0]sel,
+output reg o);
 
 	always @(*) begin
 		case(sel)
-			2''b00: o<=a;
-			2''b01: o<=b;
-			2''b10: o<=c;
+			2'b00: o<=a;
+			2'b01: o<=b;
+			2'b10: o<=c;
 			default: o<=d;
 		endcase
 	end
@@ -133,23 +143,25 @@ endmodule
 //A tristate buffer is inferred if a variable is conditionally assigned a value of z using an if, case or conditional operator
 
 module mux41_w_tristate
-(input a,b,c,d, [1:0]sel,
-output reg o)
-	assign o = s[3] ? a : 1''bzed;
-	assign o = s[2] ? b : 1''bzed;
-	...
-	assign o =s[0] ? d : 1''bzed;
+(input a,b,c,d, 
+input [1:0]sel,
+output reg o);
+
+	assign o = s[3] ? a : 1'bz;
+	assign o = s[2] ? b : 1'bz;
+	assign o = s[3] ? b : 1 'bz;
+	assign o = s[0] ? d : 1'bz;
 	
 	
 	//or (i think...)
 	always @* begin
 
 		case(sel)
-			2''b00: o<=a;
-			2''b01: o<=b;
-			2''b10: o<=c;
-			2''b11: o<=d
-			default: o<=1''bz;		
+			2'b00: o<=a;
+			2'b01: o<=b;
+			2'b10: o<=c;
+			2'b11: o<=d
+			default: o<=1'bz;		
 	end
 
 endmodule
@@ -163,20 +175,23 @@ endmodule
 
 
 module mux31_w_latch1b
-(input a,b,c, [1:0]sel
-output reg o)
+(input a,
+input b,
+input c, 
+input [1:0]sel,
+output reg o);
 
 	always @(*) begin
 	
-		if(sel==2''b00) o<=a;
-		else if(sel==1''b01) o<=b;
-		else if(self==1''b10) o<=c;
+		if(sel==2'b00) o<=a;
+		else if(sel==1'b01) o<=b;
+		else if(self==1'b10) o<=c;
 		
 		//or...
 		case(sel)
-			2''b00: o<=a;
-			2''b01: o<=b;
-			2''b10: o<=c;
+			2'b00: o<=a;
+			2'b01: o<=b;
+			2'b10: o<=c;
 		endcase
 	end
 
@@ -194,16 +209,17 @@ module decoder38
 output reg [7:0] out);
 
 	always @* begin
-		case sel
-		3''b000 : out = 8''b00000001;
-		3''b001 : out = 8''b00000010;
-		3''b010 : out = 8''b00000100;
-		3''b011 : out = 8''b00001000;
-		3''b100 : out = 8''b00010000;
-		3''b101 : out = 8''b00100000;
-		3''b110 : out = 8''b01000000;
-		3''b111 : out = 8''b10000000;
-		default: out = 8''b0;
+		case(sel)
+		3'b000 : out = 8'b00000001;
+		3'b001 : out = 8'b00000010;
+		3'b010 : out = 8'b00000100;
+		3'b011 : out = 8'b00001000;
+		3'b100 : out = 8'b00010000;
+		3'b101 : out = 8'b00100000;
+		3'b110 : out = 8'b01000000;
+		3'b111 : out = 8'b10000000;
+		default: out = 8'b0;
+		endcase
 	end
 
 endmodule
@@ -219,11 +235,15 @@ module encoder83_priority
 output [2:0] code);
 
 	always @* begin
-		if(sel==8''b00000001) code<= 3''b000;
-		if(sel[8]) code <= 3''b000;
-		...
-		if(sel[0]) code <= 3''b111;
-		else code <= 3''bxxx;
+		if(sel[0]) code <= 3'b000;
+		else if (sel[1]) code <= 3'b001;
+		else if (sel[2]) code <= 3'b010;
+		else if (sel[3]) code <= 3'b011;
+		else if (sel[4]) code <= 3'b100;
+		else if (sel[5]) code <= 3'b101;
+		else if (sel[6]) code <= 3'b110;
+		else if (sel[7]) code <= 3'b111;
+		else code <= 3'bxxx;
 	end
 
 endmodule
@@ -256,11 +276,12 @@ endmodule
 //==========================================
 
 module gte_unsigned
-(input [7:0] a, [7:0] b,
+(input [7:0] a, 
+input [7:0] b,
 output reg cmp);
 
 	always @* begin
-		cmp = (a>=b) ? 1''b1 : 11''b0 ;
+		cmp = (a>=b) ? 1'b1 : 11'b0 ;
 	end
 
 endmodule
@@ -285,11 +306,14 @@ endmodule
 // Pipelined multiplier
 //==========================================
 
-module pipe-multi
-(input [17:0]a, [17:0]b, clk
+module pipe_multi
+(input [17:0]a, 
+input [17:0]b, 
+input clk,
 output reg [35:0]mult);
 
-	reg [17:0] A, B;
+	reg [17:0] A, 
+	reg [17:0] B;
 	reg [35:0] reg1, reg2, reg3;
 
 	reg1 <= A*B;		
@@ -311,7 +335,10 @@ endmodule
 //==========================================
 
 module asdf
-(input [7:0] A, ''B,C, clk
+(input [7:0] A, 
+input [7:0] B,
+input [7:0] C, 
+input clk,
 output [15:0] RES);
 
 	wire [15:0] mult;
@@ -333,7 +360,10 @@ endmodule
 //==========================================
 
 module mult_accum
-(input [7:0] A, [7:0] B, clk, reset,
+(input [7:0] A, 
+input [7:0] B, 
+input clk, 
+input reset,
 output [15:0] RES);
 
 	
@@ -361,7 +391,11 @@ endmodule
 //saem as last w/ up/down input
 
 	module mult_accum
-	(input [7:0] A, [7:0] B, clk, reset, up_down,
+	(input [7:0] A, 
+	input [7:0] B, 
+	input clk, 
+	input reset, 
+	input up_down,
 	output [15:0] RES);
 
 
