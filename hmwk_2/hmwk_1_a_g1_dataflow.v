@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
+//dataflow implementation
 
-module one(
+module g1_dataflow(
     input x3,
     input x2,
     input x1,
@@ -13,8 +14,8 @@ module one(
 	 // nand(y1, x3, x2);
 	 // nand(y0, x0, x1, x2_);
 	
-	assign y1 = ~(x3 & x2)
-	assign y0 = ~((~(x0 & x1))& ~x1)
+	assign y1 = ~(x3 & x2);
+	assign y0 = ~(x0 & x1 & ~x2);
 
 
 endmodule
