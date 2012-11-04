@@ -8,7 +8,7 @@ module m3
 	reg d1q, tri_buff;
 
 	//first dff
-	always @(posedge CLK, RST) begin
+	always @(posedge CLK, posedge RST) begin
 		if(RST) d1q = 0;
 		else d1q = din;
 	end
@@ -19,7 +19,7 @@ module m3
 	end
 	
 	//second dff
-	always @(posedge CLK, RST) begin
+	always @(posedge CLK, posedge RST) begin
 		if(RST) dout = 0;
 		else dout = tri_buff;
 	end

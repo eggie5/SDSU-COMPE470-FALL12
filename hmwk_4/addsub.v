@@ -6,6 +6,7 @@ module addsub
  input signed [N-1:0] a,
  input signed [N-1:0] b,
  input signed [N-1:0] c,
+ input clk,
  output signed [N:0] Sum,
  output signed [N:0] Sub);
 
@@ -17,19 +18,19 @@ module addsub
 	reg signed [N-1:0] mux_out;
 	
 	//populate input registers
-	always @* begin
+	always @(posedge clk) begin
 		A=a;
 		B=b;
 		C=c;
 	end
 	
 	//this is the 2-1 mux
-	always @* begin
+	always @(posedge clk) begin
 		mux_out = (SM) ? C : B;
 	end
 	
 	//add/sub module
-	always @* begin
+	always @(posedge clk) begin
 		case(AS)
 			0: add_sub_out = A + mux_out;
 			default: add_sub_out = A - mux_out;
@@ -37,7 +38,7 @@ module addsub
 	end
 	
 	//this is the 1-2 demux
-	always @* begin
+	always @(posedge clk) begin
 		if(SD) sub_out = add_sub_out;
 		else sum_out = add_sub_out;
 	end
