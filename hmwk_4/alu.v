@@ -68,7 +68,7 @@ endmodule
 module alu
 (input signed [3:0] a,
  input signed [3:0] b,
- input [4:0] sel,
+ input [3:0] sel,
  output signed [7:0] y );
 
 	wire [7:0] lu_out;
