@@ -6,7 +6,9 @@ output [3:0] Y);
 reg [3:0] A, B, C;
 
 
+
 always @(posedge clk) begin
+
 	A <= X;
 	B <= (A+1);
 	C <= (B+1);
