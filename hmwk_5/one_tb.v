@@ -25,7 +25,7 @@ initial begin
 	
 	for (i=0; i<8; i=i+1) begin
 		@(posedge clk) X = mem[i];
-		@(posedge clk)
+		@(posedge clk)//
 		@(posedge clk)
 		@(posedge clk) begin
 			// let value propigate to Y over 2 clock cycles and then assert output

@@ -1,0 +1,62 @@
+#! /usr/local/bin/vvp
+:ivl_version "0.10.0 (devel)" "(s20120501-151-gb32e1bc)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x7fd5c8404a50 .scope module, "bit_twiddler" "bit_twiddler" 2 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 8 "X"
+    .port_info 1 /OUTPUT 8 "Qrev"
+    .port_info 2 /OUTPUT 8 "Qtc"
+    .port_info 3 /OUTPUT 8 "Qcrr"
+P_0x7fd5c8408398 .param/l "W" 0 2 7, +C4<01000>;
+o0x104f17008 .functor BUFZ 8, C4<zzzzzzzz>; HiZ drive
+v0x7fd5c8404b90_0 .net "Qcrr", 7 0, o0x104f17008;  0 drivers 
+v0x7fd5c8418430_0 .var "Qrev", 7 0;
+o0x104f17068 .functor BUFZ 8, C4<zzzzzzzz>; HiZ drive
+v0x7fd5c84184d0_0 .net "Qtc", 7 0, o0x104f17068;  0 drivers 
+o0x104f17098 .functor BUFZ 8, C4<zzzzzzzz>; HiZ drive
+v0x7fd5c8418580_0 .net/s "X", 7 0, o0x104f17098;  0 drivers 
+v0x7fd5c8418630_0 .var/i "i", 31 0;
+E_0x7fd5c8405470 .event edge, v0x7fd5c8418630_0, v0x7fd5c8418580_0;
+    .scope S_0x7fd5c8404a50;
+T_0 ;
+    %wait E_0x7fd5c8405470;
+    %movi 8, 8, 32;
+    %set/v v0x7fd5c8418630_0, 8, 32;
+T_0.0 ;
+    %load/v 8, v0x7fd5c8418630_0, 32;
+    %cmp/s 0, 8, 32;
+    %or 5, 4, 1;
+    %jmp/0xz T_0.1, 5;
+    %ix/getv/s 1, v0x7fd5c8418630_0;
+    %jmp/1 T_0.2, 4;
+    %load/x1p 8, v0x7fd5c8418580_0, 1;
+    %jmp T_0.3;
+T_0.2 ;
+    %mov 8, 2, 1;
+T_0.3 ;
+; Save base=8 wid=1 in lookaside.
+    %movi 9, 8, 33;
+    %load/v 42, v0x7fd5c8418630_0, 32;
+    %pad 74, 73, 1;
+    %sub 9, 42, 33;
+    %ix/get/s 0, 9, 33;
+    %jmp/1 t_0, 4;
+    %set/x0 v0x7fd5c8418430_0, 8, 1;
+t_0 ;
+    %load/v 8, v0x7fd5c8418630_0, 32;
+    %subi 8, 1, 32;
+    %set/v v0x7fd5c8418630_0, 8, 32;
+    %jmp T_0.0;
+T_0.1 ;
+    %jmp T_0;
+    .thread T_0, $push;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "bit_twiddler.v";

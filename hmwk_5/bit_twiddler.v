@@ -25,3 +25,5 @@ integer Qint;
 	end
 
 endmodule
+
+// iverilog -o bit_twiddler_tb bit_twiddler_tb.v && ./bit_twiddler_tb 

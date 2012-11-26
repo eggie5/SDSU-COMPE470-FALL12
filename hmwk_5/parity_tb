@@ -1,0 +1,62 @@
+#! /usr/local/bin/vvp
+:ivl_version "0.10.0 (devel)" "(s20120501-151-gb32e1bc)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x7ff653404990 .scope module, "parity_tb" "parity_tb" 2 3;
+ .timescale 0 0;
+P_0x7ff6534059c8 .param/l "W" 0 2 7, +C4<01000>;
+v0x7ff653419630_0 .var "X", 7 0;
+v0x7ff6534196f0_0 .net "out", 0 0, v0x7ff653419580_0;  1 drivers 
+S_0x7ff653404ad0 .scope module, "p" "parity" 2 9, 3 1 0, S_0x7ff653404990;
+ .timescale 0 0;
+    .port_info 0 /INPUT 8 "X"
+    .port_info 1 /OUTPUT 1 "parity_error"
+P_0x7ff653409598 .param/l "W" 0 3 1, +C4<01000>;
+v0x7ff653409610_0 .net "X", 7 0, v0x7ff653419630_0;  1 drivers 
+v0x7ff653419580_0 .var "parity_error", 0 0;
+E_0x7ff653404d60 .event edge, v0x7ff653409610_0;
+    .scope S_0x7ff653404ad0;
+T_0 ;
+    %wait E_0x7ff653404d60;
+    %load/v 10, v0x7ff653409610_0, 8;
+    %xor/r 10, 10, 8;
+    %mov 8, 10, 1;
+    %pad 9, 0, 1;
+    %cmpi/u 8, 0, 2;
+    %jmp/0xz  T_0.0, 4;
+    %set/v v0x7ff653419580_0, 0, 1;
+    %jmp T_0.1;
+T_0.0 ;
+    %set/v v0x7ff653419580_0, 1, 1;
+T_0.1 ;
+    %jmp T_0;
+    .thread T_0, $push;
+    .scope S_0x7ff653404990;
+T_1 ;
+    %vpi_call 2 13 "$display", "time\011  X\011 \011Parity" {0 0};
+    %vpi_call 2 14 "$monitor", "%g\011%b\011 %b", $time, v0x7ff653419630_0, v0x7ff6534196f0_0 {0 0};
+    %delay 1, 0;
+    %movi 8, 34, 8;
+    %set/v v0x7ff653419630_0, 8, 8;
+    %delay 1, 0;
+    %movi 8, 42, 8;
+    %set/v v0x7ff653419630_0, 8, 8;
+    %delay 1, 0;
+    %set/v v0x7ff653419630_0, 0, 8;
+    %delay 1, 0;
+    %set/v v0x7ff653419630_0, 1, 8;
+    %delay 1, 0;
+    %movi 8, 55, 8;
+    %set/v v0x7ff653419630_0, 8, 8;
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "parity_tb.v";
+    "./parity.v";
