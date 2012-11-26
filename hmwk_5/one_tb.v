@@ -17,24 +17,19 @@ initial $readmemb("expected", expected);
 
 initial begin
 	
-	// $display("time\t clk\t X\t Y");
-//	$monitor("%g\t %d\t %d\t %d", $time, clk, X, Y);	
-	
 	clk=0;
-	X=0;
 	
 	for (i=0; i<8; i=i+1) begin
 		@(posedge clk) X = mem[i];
-		@(posedge clk)//
-		@(posedge clk)
 		@(posedge clk) begin
+			@(posedge clk) //propigate
+			@(posedge clk) //propigate
+			@(posedge clk) //propigate
 			// let value propigate to Y over 2 clock cycles and then assert output
 			if(expected[i]!=Y) $display("Test failure: X=%d expected Y=%d actual Y=%d", X, expected[i], Y);
 			else $display("."); //test pass
 		end
-	
-	
-	end
+	end //end for
 	
 	@(posedge clk) $finish;
 end
